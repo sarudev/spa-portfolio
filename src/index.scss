@@ -1,0 +1,181 @@
+:root {
+  --bg-color: #242424;
+  --bt-lt: #808080;
+  --saru: #4ec9b0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "JetBrains Mono", monospace;
+}
+
+body {
+  background-color: #242424;
+  min-height: 100vh;
+}
+
+button {
+  border: none;
+}
+
+.nav-container {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  z-index: 10;
+  background-color: #3e3e3e;
+  transition: background-color .5s ease;
+
+  .nav {
+    height: 100%;
+    width: 1200px;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    >* {
+      height: 100%;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 35px;
+    }
+
+    .logo {
+      margin-left: 15px;
+      user-select: none;
+      text-shadow: #242424 2px 2px 10px;
+    }
+
+    .logo>span:nth-child(1),
+    .logo>span:nth-child(3) {
+      color: var(--bt-lt);
+    }
+
+    .logo>span:nth-child(2) {
+      color: var(--saru);
+    }
+
+    .navigation {
+      margin-right: 15px;
+    }
+
+    .navigation {
+      font-size: 15px;
+      gap: 10px;
+    }
+
+    .navigate.active:nth-child(1) {
+      background-color: #ffffff88;
+    }
+
+    .navigate {
+      text-decoration: none;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      background-color: #24242433;
+      color: white;
+      text-shadow: #242424 2px 2px 10px;
+      border: 1px transparent solid;
+      transition: all .25s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .navigate:hover {
+      background-color: #242424ee;
+      border: 1px white solid;
+      outline: 1px white solid;
+    }
+
+    .navigate.active {
+      background-color: white;
+      color: black;
+      transition: background-color .5s ease;
+    }
+
+    .navigate>.hover {
+      position: absolute;
+      content: "";
+      width: 150px;
+      height: 5px;
+      border-radius: 10px;
+      transform: translateY(12px);
+      background-color: transparent;
+      transition: background-color .5s ease;
+    }
+
+    .navigate.active>.hover {
+      background-color: darkorchid;
+      transition: background-color .5s ease;
+    }
+  }
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  .section:nth-child(1) {
+    min-height: 100vh;
+  }
+
+  .section {
+    width: 100%;
+    min-height: calc(100vh - 60px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: 1px purple solid;
+
+    .background {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background-image: url('ohto_settei.jpg');
+      background-size: cover;
+      background-position: center right;
+      background-repeat: no-repeat;
+      opacity: .4;
+      top: 0;
+      left: 0;
+    }
+
+    .profilepic {
+      width: 200px;
+      height: 200px;
+      border: 5px white solid;
+      border-radius: 50%;
+      position: relative;
+      z-index: 5;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+}
+
+#tsparticles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+@media screen and (max-width: 1000px) {
+  body {
+    background-color: red;
+  }
+}
