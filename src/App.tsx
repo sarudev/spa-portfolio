@@ -5,6 +5,8 @@ import { loadFull } from 'tsparticles'
 import particles from './assets/particles.json'
 import axios from 'axios'
 
+const url = 'https://dsprofilepic-ker-production.up.railway.app'
+
 const $ = (selector: string): Element => document.querySelector(selector)!
 
 function Navigate ({ name, active, hack }: { name: string, active: boolean, hack: ({ event, originalString, origin }: { event?: React.MouseEvent<HTMLSpanElement, MouseEvent> | undefined, originalString: string, origin?: HTMLSpanElement | undefined }) => void }): React.ReactElement {
@@ -38,7 +40,7 @@ function App (): React.ReactElement {
   const [profPicURL, setProfPicURL] = useState<string>('')
 
   useEffect(() => {
-    void axios.get('http://localhost:3000/ds/profpic/999693766313123860').then(res => {
+    void axios.get(`${url}/ds/profpic/999693766313123860`).then(res => {
       setProfPicURL(res.data)
       setLoading(false)
     })
@@ -95,7 +97,7 @@ function App (): React.ReactElement {
 
       if (iteration >= originalString.length) clearInterval(interval)
 
-      iteration += 1 / 3
+      iteration += 1 / 2
     }, 50)
   }, [])
 
@@ -122,21 +124,52 @@ function App (): React.ReactElement {
       </div>
       <div className="sections">
         <Section name="Home">
-          <>
+          <div className='home'>
             <div className="background"/>
             <Particles
               id="tsparticles"
               init={particlesInit}
-              // loaded={particlesLoaded}
               options={particles as RecursivePartial<IOptions>}
             />
-            <div style={{ backgroundImage: `url(${profPicURL})` }} className='profilepic' />
-            {/* My name is José, but you can call me Saru */}
-            {/* I'm Sarudev, but you can call me Saru */}
-          </>
+            <div className='profile-container'>
+              <div style={{ backgroundImage: `url(${profPicURL})` }} className='profilepic' />
+              <div className="saru-container">
+                <span className="in-kwnon-as">
+                  <span>I&apos;m</span>
+                  <span>known</span>
+                  <span>as</span>
+                </span>
+                <span className="saru">Saru</span>
+              </div>
+            </div>
+          </div>
         </Section>
         <Section name="About">
-          <span>About</span>
+          <div className='about'>
+            <div className="me-pic">
+              <div className="border">
+                <div className="pic"/>
+              </div>
+            </div>
+            <div className='about-me'>
+              <div className="title">React-Based Frontend Developer</div>
+              <div className="description">
+                Hi, I&apos;m <span>José María Coria</span>, known on the internet as <span>Saru</span>. I like anime, girls with short hair, and in my spare time I like to play the piano and code something. I started learning programming self-taught in April 2021, shortly after starting my university studies. My first project was a discord bot with JavaScript, in which I spent 2 months programming it and thanks to that, and more, today I have a high level.
+              </div>
+              <div className="data">
+                <div>
+                  <span>Age</span>:&nbsp;<span>{20}</span>
+                </div>
+                <div>
+                  <span>Country</span>:&nbsp;<span>Argentina</span>
+                </div>
+              </div>
+              <div className="button">
+                <button>My Skills</button>
+                <button><span>Curriculum</span></button>
+              </div>
+            </div>
+          </div>
         </Section>
         <Section name="Knowledge">
           <span>Knowledge</span>
