@@ -152,7 +152,7 @@ button {
       width: 100%;
       height: 100%;
       position: absolute;
-      background-image: url('ohto_settei.jpg');
+      background-image: url('/static/ohto_settei.jpg');
       background-size: cover;
       background-position: 70% 50%;
       background-repeat: no-repeat;
@@ -251,7 +251,7 @@ button {
           width: 260px;
           height: 260px;
           position: absolute;
-          background-image: url('yo.jpg');
+          background-image: url('/static/yo.jpg');
           background-size: cover;
           border: 2px gray solid;
         }
