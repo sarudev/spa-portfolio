@@ -128,7 +128,7 @@ button {
 .sections {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 
   .section {
     width: 100%;
@@ -136,14 +136,15 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    outline: 1px purple solid;
+    position: relative;
   }
 
-  .section:nth-child(1) {
+  #Home {
     min-height: 100vh;
   }
 
-  .section:nth-child(2) {
+  #About,
+  #Skills {
     min-height: max-content;
   }
 
@@ -152,7 +153,8 @@ button {
       width: 100%;
       height: 100%;
       position: absolute;
-      background-image: url('/static/ohto_settei.jpg');
+      background-image: url('/static/ohto.jpg');
+      background-attachment: fixed;
       background-size: cover;
       background-position: 70% 50%;
       background-repeat: no-repeat;
@@ -219,7 +221,6 @@ button {
   }
 
   .about {
-    margin: 55px;
     width: 1200px;
     max-width: 1200px;
     height: max-content;
@@ -248,8 +249,8 @@ button {
         border: 2px gray solid;
 
         .pic {
-          width: 260px;
-          height: 260px;
+          width: calc(100% - 40px);
+          height: calc(100% - 100px);
           position: absolute;
           background-image: url('/static/yo.jpg');
           background-size: cover;
@@ -315,11 +316,12 @@ button {
         width: 100%;
         display: flex;
         justify-content: space-evenly;
+        user-select: none;
 
         button {
-          font-size: 24px;
-          height: 60px;
-          width: 175px;
+          font-size: 1.3rem;
+          height: 50px;
+          width: 150px;
           cursor: pointer;
           position: relative;
           border-radius: 15px;
@@ -420,6 +422,34 @@ button {
       }
     }
   }
+
+  .skills {
+    width: 100%;
+
+    .background {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background-image: url('/static/kuriyama.jpg');
+      // background-image: url('/static/kuriyama.gif');
+      // background-image: url('/static/2b.gif');
+      // background-image: url('/static/shinomiya.webp');
+      // background-image: url('/static/cherry.gif');
+      background-position: 40% center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      opacity: .4;
+      top: 0;
+      left: 0;
+    }
+
+    .container {
+      width: 100%;
+      height: 800px;
+      max-height: 800px;
+    }
+  }
 }
 
 #tsparticles {
@@ -431,11 +461,7 @@ button {
 }
 
 @media screen and (max-width: 1000px) {
-  body {
-    background-color: red;
+  .sections .about {
+    flex-direction: column;
   }
-
-  // .sections .section .about .about-me .description {
-  //   font-size: 25px;
-  // }
 }

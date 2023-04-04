@@ -1,8 +1,7 @@
 import React, { type ReactElement, useEffect, useState, useCallback, useRef } from 'react'
-import type { Engine, RecursivePartial, IOptions } from 'tsparticles-engine'
+import type { Engine } from 'tsparticles-engine'
 import Particles from 'react-tsparticles'
 import { loadFull } from 'tsparticles'
-import particles from './assets/particles.json'
 import axios from 'axios'
 
 const url = 'https://dsprofilepic-ker-production.up.railway.app'
@@ -57,7 +56,6 @@ function App (): React.ReactElement {
 
     observer.observe($('#Home'))
     observer.observe($('#About'))
-    observer.observe($('#Knowledge'))
     observer.observe($('#Skills'))
     observer.observe($('#Proyects'))
     observer.observe($('#Education'))
@@ -66,16 +64,11 @@ function App (): React.ReactElement {
     return () => {
       observer.unobserve($('#Home'))
       observer.unobserve($('#About'))
-      observer.unobserve($('#Knowledge'))
       observer.unobserve($('#Skills'))
       observer.unobserve($('#Proyects'))
       observer.unobserve($('#Education'))
       observer.unobserve($('#Contact'))
     }
-  }, [])
-
-  const particlesInit = useCallback(async (engine: Engine) => {
-    await loadFull(engine)
   }, [])
 
   const hack = useCallback(({ event, originalString, origin }: { event?: React.MouseEvent<HTMLSpanElement, MouseEvent>, originalString: string, origin?: HTMLSpanElement }) => {
@@ -114,7 +107,6 @@ function App (): React.ReactElement {
           <div className="navigation">
             <Navigate hack={hack} active={currentElem === 'Home'} name="Home" />
             <Navigate hack={hack} active={currentElem === 'About'} name="About" />
-            <Navigate hack={hack} active={currentElem === 'Knowledge'} name="Knowledge" />
             <Navigate hack={hack} active={currentElem === 'Skills'} name="Skills" />
             <Navigate hack={hack} active={currentElem === 'Proyects'} name="Proyects" />
             <Navigate hack={hack} active={currentElem === 'Education'} name="Education" />
@@ -126,11 +118,7 @@ function App (): React.ReactElement {
         <Section name="Home">
           <div className='home'>
             <div className="background"/>
-            <Particles
-              id="tsparticles"
-              init={particlesInit}
-              options={particles as RecursivePartial<IOptions>}
-            />
+            <Cherry />
             <div className='profile-container'>
               <div style={{ backgroundImage: `url(${profPicURL})` }} className='profilepic' />
               <div className="saru-container">
@@ -154,7 +142,7 @@ function App (): React.ReactElement {
             <div className='about-me'>
               <div className="title">React-Based Frontend Developer</div>
               <div className="description">
-                Hi, I&apos;m <span>José María Coria</span>, known on the internet as <span>Saru</span>. I like anime, girls with short hair, and in my spare time I like to play the piano and code something. I started learning programming self-taught in April 2021, shortly after starting my university studies. My first project was a discord bot with JavaScript, in which I spent 2 months programming it and thanks to that, and more, today I have a high level.
+                Hi, I&apos;m <span>José María Coria</span>, known on the internet as <span>Saru</span>. I like videogames, anime, and girls with short hair. In my spare time I like to play the piano and code something. I started learning programming self-taught in April 2021, shortly after starting my university studies. My first project was a discord bot with JavaScript, in which I spent 2 months programming it and thanks to that, and more, today I have a high level.
               </div>
               <div className="data">
                 <div>
@@ -165,17 +153,24 @@ function App (): React.ReactElement {
                 </div>
               </div>
               <div className="button">
-                <button>My Skills</button>
-                <button><span>Curriculum</span></button>
+                <button onClick={() => { $('#Contact').scrollIntoView({ behavior: 'smooth', block: 'end' }) }}
+                >
+                  Contact me
+                </button>
+                <button>
+                  <span>
+                    Curriculum
+                  </span>
+                </button>
               </div>
             </div>
           </div>
         </Section>
-        <Section name="Knowledge">
-          <span>Knowledge</span>
-        </Section>
         <Section name="Skills">
-          <span>Skills</span>
+          <div className="skills">
+            <div className="background"/>
+            <div className="container"></div>
+          </div>
         </Section>
         <Section name="Proyects">
           <span>Proyects</span>
@@ -188,6 +183,99 @@ function App (): React.ReactElement {
         </Section>
       </div>
     </div>
+  )
+}
+
+function Cherry (): ReactElement {
+  const particlesInit = useCallback(async (engine: Engine) => {
+    await loadFull(engine)
+  }, [])
+
+  return (
+    <Particles
+      id="tsparticles"
+      init={particlesInit}
+      options={{
+        style: {
+          position: 'relative'
+        },
+        fpsLimit: 60,
+        particles: {
+          color: {
+            value: '#ffffff'
+          },
+          move: {
+            direction: 'bottom-left',
+            enable: true,
+            outModes: {
+              default: 'out'
+            },
+            random: false,
+            speed: 10,
+            straight: false
+          },
+          number: {
+            value: 50
+          },
+          opacity: {
+            value: 1
+          },
+          shape: {
+            type: 'image',
+            image: [
+              {
+                src: '/static/petals/petal1.png',
+                width: 100,
+                height: 100
+              },
+              {
+                src: '/static/petals/petal2.png',
+                width: 100,
+                height: 100
+              },
+              {
+                src: '/static/petals/petal3.png',
+                width: 100,
+                height: 100
+              },
+              {
+                src: '/static/petals/petal4.png',
+                width: 100,
+                height: 100
+              },
+              {
+                src: '/static/petals/petal5.png',
+                width: 100,
+                height: 100
+              },
+              {
+                src: '/static/petals/petal6.png',
+                width: 100,
+                height: 100
+              },
+              {
+                src: '/static/petals/petal7.png',
+                width: 100,
+                height: 100
+              },
+              {
+                src: '/static/petals/petal8.png',
+                width: 100,
+                height: 100
+              },
+              {
+                src: '/static/petals/petal9.png',
+                width: 100,
+                height: 100
+              }
+            ]
+          },
+          size: {
+            value: 20
+          }
+        }
+      }}
+    />
   )
 }
 

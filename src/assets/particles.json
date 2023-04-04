@@ -32,21 +32,21 @@
     "links": {
       "color": "#ffffff",
       "distance": 200,
-      "enable": true,
+      "enable": false,
       "opacity": 0.5,
       "width": 1
     },
     "collisions": {
-      "enable": true
+      "enable": false
     },
     "move": {
-      "direction": "none",
+      "direction": "bottom-left",
       "enable": true,
       "outModes": {
-        "default": "bounce"
+        "default": "none"
       },
       "random": false,
-      "speed": 3,
+      "speed": 10,
       "straight": false
     },
     "number": {
@@ -54,7 +54,7 @@
         "enable": true,
         "area": 800
       },
-      "value": 50
+      "value": 60
     },
     "opacity": {
       "value": 0.5
@@ -63,7 +63,7 @@
       "type": "circle"
     },
     "size": {
-      "value": 3
+      "value": 5
     }
   },
   "detectRetina": true
