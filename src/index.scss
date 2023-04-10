@@ -535,6 +535,36 @@ html {
 
                   >.tags {
                     font-size: 12px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-evenly;
+
+                    >.tag {
+                      --opacity: .4;
+                      margin: 2px;
+                      padding: 5px;
+                      border-radius: 7px;
+                      font-weight: bold;
+
+                      &:hover {
+                        --opacity: 1;
+                      }
+
+                      &.React {
+                        --color: rgba(97, 219, 251, var(--opacity));
+                        background-color: var(--color);
+                      }
+
+                      &.Typescript {
+                        --color: rgba(118, 74, 188, var(--opacity));
+                        background-color: var(--color);
+                      }
+
+                      &.Redux {
+                        --color: rgba(49, 120, 198, var(--opacity));
+                        background-color: var(--color);
+                      }
+                    }
                   }
 
                   >.description {

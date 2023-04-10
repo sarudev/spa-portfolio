@@ -179,17 +179,6 @@ function App (): React.ReactElement {
               <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
               <ProjectCard name={'Dos'} img={'/static/kuriyama.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg hhhhhhhhhhhh iiiiiiiiiiiii jjj kkkkkk'} repo={'5'} web={'6'} />
               <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
-              <ProjectCard name={'Dos'} img={'/static/kuriyama.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg hhhhhhhhhhhh iiiiiiiiiiiii jjj kkkkkk'} repo={'5'} web={'6'} />
-              <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
-              <ProjectCard name={'Dos'} img={'/static/kuriyama.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg hhhhhhhhhhhh iiiiiiiiiiiii jjj kkkkkk'} repo={'5'} web={'6'} />
-              <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
-              <ProjectCard name={'Dos'} img={'/static/kuriyama.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg hhhhhhhhhhhh iiiiiiiiiiiii jjj kkkkkk'} repo={'5'} web={'6'} />
-              <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
-              <ProjectCard name={'Dos'} img={'/static/kuriyama.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg hhhhhhhhhhhh iiiiiiiiiiiii jjj kkkkkk'} repo={'5'} web={'6'} />
-              <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
-              <ProjectCard name={'Dos'} img={'/static/kuriyama.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg hhhhhhhhhhhh iiiiiiiiiiiii jjj kkkkkk'} repo={'5'} web={'6'} />
-              <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
-              <ProjectCard name={'Dos'} img={'/static/kuriyama.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg hhhhhhhhhhhh iiiiiiiiiiiii jjj kkkkkk'} repo={'5'} web={'6'} />
             </div>
           </ContainerWithTitle>
         </Section>
@@ -207,7 +196,9 @@ function ProjectCard ({ name, img, tags, description, repo, web }: { name: strin
       <div className="project-card">
         <div className='title'>{name}</div>
         <div className='img' style={{ backgroundImage: `url(${img})` }} />
-        <div className='tags'>{tags}</div>
+        <div className='tags'>
+          {tags.map((e, i) => <div className={`tag ${e}`} key={i}>{e}</div>)}
+        </div>
         <div className='description'>{description}</div>
         <div className='links'>
           {repo != null && (
