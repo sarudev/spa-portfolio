@@ -15,7 +15,8 @@
     "react-tsparticles": "2.9.3",
     "sass": "1.60.0",
     "styled-components": "5.3.9",
-    "tsparticles": "2.9.3"
+    "tsparticles": "2.9.3",
+    "vite-plugin-svgr": "^2.4.0"
   },
   "devDependencies": {
     "@types/react": "18.0.28",
