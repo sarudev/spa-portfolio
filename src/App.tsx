@@ -1,20 +1,20 @@
-import React, { type ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { type ReactElement, useCallback, useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import NavBar from './Components/NavBar'
 import Cherry from './Components/Cherry'
 import Section from './Components/Section'
 import Skill from './Components/Skill'
 import { $, $$ } from './Helpers/Query'
+import emailjs from '@emailjs/browser'
 
-import { ReactComponent as Github } from '../public/static/github.svg'
-import { ReactComponent as Link } from '../public/static/link.svg'
+import { ReactComponent as Github } from './assets/github.svg'
+import { ReactComponent as Link } from './assets/link.svg'
 
 const url = 'https://dsprofilepic-ker-production.up.railway.app'
 
 function App (): React.ReactElement {
-  // const [loading, setLoading] = useState(true)
-
   const [profPicURL, setProfPicURL] = useState<string>('')
+  const form = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
     const source = axios.CancelToken.source()
@@ -70,6 +70,7 @@ function App (): React.ReactElement {
       elem.style.height = style.width
     }
 
+    resize()
     const scroll = observer()
 
     window.addEventListener('resize', resize)
@@ -100,15 +101,24 @@ function App (): React.ReactElement {
     return { top: Math.round(top), left: Math.round(left) }
   }, [])
 
-  // if (loading) return (<></>)
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault()
+
+    emailjs.sendForm('service_hlwh1ue', 'template_bbh6qie', form.current!, 'wYl9iOiK7rs_ozSRy')
+      .then((result) => {
+        console.log(result.text)
+      }, (error) => {
+        console.log(error.text)
+      })
+  }
 
   return (
     <div className="App">
       <div className='observer' />
       <NavBar />
-      {/* <div style={{ color: 'white' }}>: {} height: {window.innerHeight}</div> */}
+      <div style={{ color: 'white', position: 'absolute' }}>width: {window.innerWidth} height: {window.innerHeight}</div>
       <div className="sections">
-        <Section bg={'/static/ohto.jpg'} name="Home" styles={{ minHeight: '100vh' }}>
+        <Section bg='/static/ohto.jpg' name="Home" style={{ minHeight: '100vh' }}>
           <>
             <Cherry />
             <div className='profile-container'>
@@ -155,7 +165,7 @@ function App (): React.ReactElement {
               </div>
           </div>
         </Section>
-        <Section bg={'/static/kuriyama.jpg'} name="Skills">
+        <Section bg='/static/kuriyama.jpg' name="Skills">
             <ContainerWithTitle className='container' title='Skills'>
               <div className="skills-container">
                 <Skill name="JavaScript" level={85} />
@@ -172,18 +182,24 @@ function App (): React.ReactElement {
             <div className="cards">
               <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
               <ProjectCard name={'Dos'} img={'/static/kuriyama.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg hhhhhhhhhhhh iiiiiiiiiiiii jjj kkkkkk'} repo={'5'} web={'6'} />
-              <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
-              <ProjectCard name={'Dos'} img={'/static/kuriyama.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg hhhhhhhhhhhh iiiiiiiiiiiii jjj kkkkkk'} repo={'5'} web={'6'} />
-              <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
-              <ProjectCard name={'Dos'} img={'/static/kuriyama.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg hhhhhhhhhhhh iiiiiiiiiiiii jjj kkkkkk'} repo={'5'} web={'6'} />
-              <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
-              <ProjectCard name={'Dos'} img={'/static/kuriyama.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg hhhhhhhhhhhh iiiiiiiiiiiii jjj kkkkkk'} repo={'5'} web={'6'} />
-              <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
             </div>
           </ContainerWithTitle>
         </Section>
-        <Section name="Contact">
-          <span>Contact</span>
+        <Section bg='/static/kuriyama.jpg' name="Contact">
+          <>
+            <form className="form" ref={form} onSubmit={handleSubmit}>
+              <label>Name</label>
+              <input type="text" name="sender_name" />
+              <label>Subject</label>
+              <input type="text" name="sender_subject" />
+              <label>Email</label>
+              <input type="email" name="sender_email" />
+              <label>Message</label>
+              <textarea name="sender_message" />
+              <button type='submit'>Send</button>
+            </form>
+            <div className="info"></div>
+          </>
         </Section>
       </div>
     </div>
@@ -218,15 +234,7 @@ function ProjectCard ({ name, img, tags, description, repo, web }: { name: strin
 }
 
 function Title ({ text }: { text: string }): React.ReactElement {
-  const style: React.CSSProperties = {
-    textAlign: 'center',
-    color: 'white',
-    fontSize: '3.5rem',
-    fontWeight: 'bold',
-    textShadow: '#242424 3px 5px 5px'
-  }
-
-  return <div style={style}>{text}</div>
+  return <div className='title'>{text}</div>
 }
 
 function ContainerWithTitle ({ title, children, style, className }: { title: string, children: ReactElement, style?: React.CSSProperties, className?: string }): React.ReactElement {
@@ -252,22 +260,8 @@ function ContainerWithTitle ({ title, children, style, className }: { title: str
 }
 
 export function Background ({ img }: { img: string }): React.ReactElement {
-  const style: React.CSSProperties = {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    backgroundImage: `url(${img})`,
-    backgroundPosition: '50% center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundAttachment: 'fixed',
-    opacity: 0.4,
-    top: 0,
-    left: 0
-  }
-
   return (
-    <div style={style} />
+    <div className='background' style={{ backgroundImage: `url(${img})` }} />
   )
 }
 
@@ -275,3 +269,4 @@ export default App
 
 // 509 x 1035
 // 351 x 625
+// 320 x 570

@@ -4,6 +4,15 @@
   --bg-color: #242424;
   --bt-lt: #808080;
   --saru: #4ec9b0;
+
+  --title-fs: 40px;
+  --head-fs: 32px;
+  --description-fs: 20px;
+  --data-fs: 20px;
+  --skill-fs: 25px;
+  --card-t-fs: 25px;
+  --card-tg-fs: 12px;
+  --card-des-fs: 15px;
 }
 
 *,
@@ -185,6 +194,14 @@ html {
         gap: 25px;
 
         >.section {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          height: max-content;
+          padding: 50px;
+
           &#Home {
             display: flex;
             justify-content: center;
@@ -194,7 +211,6 @@ html {
               width: min-content;
               height: min-content;
               position: relative;
-              z-index: 2;
               display: flex;
               flex-direction: column;
               justify-content: center;
@@ -207,7 +223,6 @@ html {
                 border: 5px white solid;
                 border-radius: 50%;
                 position: relative;
-                z-index: 5;
                 background-repeat: no-repeat;
                 background-size: cover;
                 box-shadow: 8px 10px 86px 0px rgba(0, 0, 0, 0.75);
@@ -303,12 +318,12 @@ html {
 
                 >.title {
                   width: 100%;
-                  font-size: 32px;
+                  font-size: var(--head-fs);
                   font-weight: bold;
                 }
 
                 >.description {
-                  font-size: 1.2rem;
+                  font-size: var(--description-fs);
 
                   >span {
                     font-weight: bold;
@@ -319,7 +334,7 @@ html {
                   width: 100%;
                   display: flex;
                   justify-content: space-evenly;
-                  font-size: 1.2rem;
+                  font-size: var(--data-fs);
 
                   >div {
                     width: 175px;
@@ -348,7 +363,7 @@ html {
                   user-select: none;
 
                   .btn {
-                    font-size: 1.3rem;
+                    font-size: var(--data-fs);
                     height: 50px;
                     width: 150px;
                     cursor: pointer;
@@ -476,7 +491,7 @@ html {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-                font-size: 1.6rem;
+                font-size: var(--skill-fs);
                 color: white;
               }
 
@@ -488,7 +503,7 @@ html {
 
                 >.fill {
                   height: 100%;
-                  background: #00B0DC;
+                  background: #02b3d2;
                   border-radius: 25px;
                 }
               }
@@ -522,7 +537,7 @@ html {
                   box-shadow: 8px 10px 20px 0px rgba(0, 0, 0, 0.75);
 
                   >.title {
-                    font-size: 25px;
+                    font-size: var(--card-t-fs);
                     text-align: center;
                   }
 
@@ -534,7 +549,7 @@ html {
                   }
 
                   >.tags {
-                    font-size: 12px;
+                    font-size: var(--card-tg-fs);
                     display: flex;
                     flex-wrap: wrap;
                     justify-content: space-evenly;
@@ -569,7 +584,7 @@ html {
 
                   >.description {
                     width: 100%;
-                    font-size: 15px;
+                    font-size: var(--card-des-fs);
                     word-wrap: break-word;
                     text-align: center;
                   }
@@ -619,6 +634,32 @@ html {
               }
             }
           }
+
+          &#Contact {
+            height: calc(100vh - 60px);
+            flex-direction: column;
+
+            // >.container {
+            //   width: min(1200px, 100%);
+            //   height: 100%;
+            //   display: flex;
+            //   align-items: center;
+            //   justify-content: center;
+            //   color: white;
+            //   flex-direction: column;
+
+            .form,
+            .info {
+              width: min(500px, 100%);
+              height: max-content;
+            }
+
+            .form {}
+
+            .info {}
+
+            // }
+          }
         }
       }
 
@@ -627,6 +668,28 @@ html {
       }
     }
   }
+}
+
+.title {
+  text-align: center;
+  color: white;
+  font-size: var(--title-fs);
+  font-weight: bold;
+  text-shadow: #242424 3px 5px 5px;
+}
+
+.background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-position: 50% center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  opacity: 0.4;
+  top: 0;
+  z-index: -1;
+  left: 0;
 }
 
 .svg-shadow {
@@ -647,6 +710,8 @@ button {
 }
 
 @media screen and (max-width: 800px) {
+  :root {}
+
   html>body>#root>.App {
     >.sections>.section {
       &#About>.container {
@@ -665,6 +730,16 @@ button {
           gap: 15px;
           grid-template-columns: repeat(1, 1fr);
           grid-template-rows: repeat(6, 50px);
+        }
+      }
+
+      &#Contact>.container {
+        flex-direction: column;
+
+        >.form,
+        >.info {
+          width: 100%;
+          height: 50%;
         }
       }
     }
@@ -706,15 +781,21 @@ button {
 }
 
 @media screen and (max-width: 400px) {
-  html>body>#root>.App {
-    >.sections>.section {
-      &#Skills>.skills>.container-wrapper>.container>.skills-container>.skill>.name-level {
-        font-size: 15px;
-      }
+  :root {
+    --title-fs: 2.5rem;
+    --head-fs: 25px;
+    --description-fs: 13px;
+    --data-fs: 12px;
+    --skill-fs: 15px;
+    --card-t-fs: 15px;
+    --card-tg-fs: 8px;
+    --card-des-fs: 10px;
+  }
 
-      &#Projects .cards>.project-card>.description {
-        font-size: 10px;
-      }
+  html>body>#root>.App {
+    >.sections>.section#About>.container>.about-me>.buttons>.btn {
+      width: 100px;
+      height: 40px;
     }
 
     >.nav-container>.nav>.navigation {
