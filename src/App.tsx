@@ -188,19 +188,41 @@ function App (): React.ReactElement {
         <Section bg='/static/kuriyama.jpg' name="Contact">
           <>
             <form className="form" ref={form} onSubmit={handleSubmit}>
-              <label>Name</label>
-              <input type="text" name="sender_name" />
-              <label>Subject</label>
-              <input type="text" name="sender_subject" />
-              <label>Email</label>
-              <input type="email" name="sender_email" />
-              <label>Message</label>
-              <textarea name="sender_message" />
-              <button type='submit'>Send</button>
+              <div className="container">
+                <Input label='Name' name='sender_name' type='text' />
+                <Input label='Email' name='sender_email' type='email' />
+              </div>
+              <Input label='Subject' name='sender_subject' type='text' />
+              <TextArea label='Message' name='sender_message' />
+              <button className='send' type='submit'>Send</button>
             </form>
-            <div className="info"></div>
+            {/* <div className="info"></div> */}
           </>
         </Section>
+      </div>
+    </div>
+  )
+}
+
+function TextArea ({ name, label }: { name: string, label: string }): React.ReactElement {
+  return (
+    <div className="custom-input">
+      <div className="wrapper">
+        <textarea className='input' placeholder=" " name={name} required />
+        <div className="underline" />
+        <label>{label}</label>
+      </div>
+    </div>
+  )
+}
+
+function Input ({ type, name, label }: { type: React.HTMLInputTypeAttribute, name: string, label: string }): React.ReactElement {
+  return (
+    <div className="custom-input">
+      <div className="wrapper">
+        <input className='input' placeholder=" " type={type} name={name} required />
+        <div className="underline" />
+        <label>{label}</label>
       </div>
     </div>
   )
