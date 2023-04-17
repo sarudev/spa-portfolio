@@ -189,11 +189,11 @@ function App (): React.ReactElement {
           <>
             <form className="form" ref={form} onSubmit={handleSubmit}>
               <div className="container">
-                <Input label='Name' name='sender_name' type='text' />
-                <Input label='Email' name='sender_email' type='email' />
+                <Input placeholder='Name' name='sender_name' type='text' />
+                <Input placeholder='Email' name='sender_email' type='email' />
               </div>
-              <Input label='Subject' name='sender_subject' type='text' />
-              <TextArea label='Message' name='sender_message' />
+              <Input placeholder='Subject' name='sender_subject' type='text' />
+              <Input placeholder='Message' name='sender_message' type='textarea' />
               <button className='send' type='submit'>Send</button>
             </form>
             {/* <div className="info"></div> */}
@@ -204,26 +204,18 @@ function App (): React.ReactElement {
   )
 }
 
-function TextArea ({ name, label }: { name: string, label: string }): React.ReactElement {
+function Input ({ type, name, placeholder }: { type: React.HTMLInputTypeAttribute | 'textarea', name: string, placeholder: string }): React.ReactElement {
   return (
-    <div className="custom-input">
-      <div className="wrapper">
-        <textarea className='input' placeholder=" " name={name} required />
-        <div className="underline" />
-        <label>{label}</label>
-      </div>
-    </div>
-  )
-}
-
-function Input ({ type, name, label }: { type: React.HTMLInputTypeAttribute, name: string, label: string }): React.ReactElement {
-  return (
-    <div className="custom-input">
-      <div className="wrapper">
-        <input className='input' placeholder=" " type={type} name={name} required />
-        <div className="underline" />
-        <label>{label}</label>
-      </div>
+    <div className={`custom-input ${type}`}>
+      {
+        type === 'textarea'
+          ? <textarea className='input' spellCheck='false' placeholder={placeholder} name={name} required />
+          : <input className='input' placeholder={placeholder} type={type} name={name} required />
+      }
+      {/* <div className="top line" />
+      <div className="left line" />
+      <div className="right line" />
+      <div className="bottom line" /> */}
     </div>
   )
 }
