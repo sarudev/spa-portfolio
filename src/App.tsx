@@ -39,7 +39,7 @@ function App (): React.ReactElement {
       const scroll = (): void => {
         const { top: y } = getCoords(observer)
 
-        const threshold = 50
+        const threshold = 75
 
         const yDetection = y + observer.clientHeight * threshold / 100
 
@@ -180,24 +180,26 @@ function App (): React.ReactElement {
         <Section name="Projects">
           <ContainerWithTitle title='Projects'>
             <div className="cards">
-              <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
-              <ProjectCard name={'Dos'} img={'/static/kuriyama.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg hhhhhhhhhhhh iiiiiiiiiiiii jjj kkkkkk'} repo={'5'} web={'6'} />
+              <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
+              <ProjectCard name={'Dos'} img={'/static/kuriyama.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg hhhhhhhhhhhh iiiiiiiiiiiii jjj kkkkkk'} repo={'5'} web={'6'} />
             </div>
           </ContainerWithTitle>
         </Section>
         <Section bg='/static/kuriyama.jpg' name="Contact">
-          <>
-            <form className="form" ref={form} onSubmit={handleSubmit}>
-              <div className="container">
-                <Input placeholder='Name' name='sender_name' type='text' />
-                <Input placeholder='Email' name='sender_email' type='email' />
-              </div>
-              <Input placeholder='Subject' name='sender_subject' type='text' />
-              <Input placeholder='Message' name='sender_message' type='textarea' />
-              <button className='send' type='submit'>Send</button>
-            </form>
-            {/* <div className="info"></div> */}
-          </>
+          <ContainerWithTitle title='Contact'>
+            <>
+              <form className="form" ref={form} onSubmit={handleSubmit}>
+                <div className="container">
+                  <Input placeholder='Name' name='sender_name' type='text' />
+                  <Input placeholder='Email' name='sender_email' type='email' />
+                </div>
+                <Input placeholder='Subject' name='sender_subject' type='text' />
+                <Input placeholder='Message' name='sender_message' type='textarea' />
+                <button className='send' type='submit'>Send</button>
+              </form>
+              {/* <div className="info"></div> */}
+            </>
+          </ContainerWithTitle>
         </Section>
       </div>
     </div>
@@ -259,6 +261,8 @@ function ContainerWithTitle ({ title, children, style, className }: { title: str
       color: 'white',
       gap: '40px',
       display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
       flexDirection: 'column',
       zIndex: 5
     },
