@@ -1,25 +1,24 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Navigate from './Navigate'
+import { type ObserverEvent, subscribe, unsubscrite } from '../Helpers/Observer'
 
 export default function NavBar (): React.ReactElement {
   const [currentElem, setCurrentElem] = useState<string>('')
   const [opened, setOpened] = useState(false)
 
   useEffect(() => {
-    window.addEventListener('observer', (e: CustomEventInit<Array<{ target: HTMLElement, isIntersecting: boolean, wasIntercepted: boolean }>>) => {
+    const cb = (e: ObserverEvent) => {
       const entries = e.detail!
 
       entries.forEach(elem => {
         if (elem.isIntersecting) setCurrentElem(elem.target.id)
       })
-    })
+    }
+
+    subscribe(cb)
 
     return () => {
-      // observer.unobserve($('#Home')!)
-      // observer.unobserve($('#About')!)
-      // observer.unobserve($('#Skills')!)
-      // observer.unobserve($('#Projects')!)
-      // observer.unobserve($('#Contact')!)
+      unsubscrite(cb)
     }
   }, [])
 

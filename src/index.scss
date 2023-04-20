@@ -34,14 +34,6 @@ html {
     height: 100%;
 
     >#root>.App {
-      >.observer {
-        background-color: transparent;
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-        z-index: -5;
-      }
-
       >.nav-container {
         height: 60px;
         width: 100%;
@@ -197,6 +189,7 @@ html {
           padding: 50px;
 
           &#Home {
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -273,14 +266,14 @@ html {
               gap: 40px;
 
               >.me-pic {
-                min-width: min(300px, 100%);
-                height: 300px;
+                width: min(300px, 100%);
+                aspect-ratio: 1;
+                flex: 1;
                 transform: rotate(-15deg);
 
                 >.border {
-                  width: 100%;
-                  height: 100%;
-                  padding: 20px;
+                  aspect-ratio: 1;
+                  padding: 7%;
                   background-color: white;
                   position: relative;
                   display: flex;
@@ -288,8 +281,8 @@ html {
                   border: 2px gray solid;
 
                   >.pic {
-                    width: calc(100% - 40px);
-                    height: calc(100% - 40px);
+                    width: 86%;
+                    aspect-ratio: 1;
                     position: absolute;
                     background-image: url('/static/yo.jpg');
                     background-size: cover;
@@ -578,7 +571,6 @@ html {
                   >.description {
                     width: 100%;
                     font-size: var(--card-des-fs);
-                    hyphens: auto;
                     word-break: break-all;
                     text-align: center;
                   }
@@ -631,7 +623,6 @@ html {
 
           &#Contact {
             height: calc(100vh - 60px);
-            flex-direction: column;
 
             .form {
               width: min(600px, 100%);
@@ -701,8 +692,6 @@ html {
               }
 
             }
-
-            .info {}
           }
         }
       }
@@ -746,11 +735,11 @@ html {
       background-color: #4e4e4e;
     }
 
-    &:is(:focus, :not(:focus)):is(:not(:placeholder-shown):invalid) {
+    &[type='email']:is(:focus, :not(:focus)):is(:not(:placeholder-shown):invalid) {
       border-color: crimson;
     }
 
-    &:is(:focus, :not(:focus)):is(:not(:placeholder-shown):valid) {
+    &[type='email']:is(:focus, :not(:focus)):is(:not(:placeholder-shown):valid) {
       border-color: var(--saru);
     }
   }

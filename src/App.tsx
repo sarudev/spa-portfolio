@@ -1,108 +1,35 @@
-import React, { type ReactElement, useCallback, useEffect, useState, useRef } from 'react'
-import axios from 'axios'
+import React, { type ReactElement, useState, useRef } from 'react'
 import NavBar from './Components/NavBar'
 import Cherry from './Components/Cherry'
 import Section from './Components/Section'
 import Skill from './Components/Skill'
-import { $, $$ } from './Helpers/Query'
+import { $ } from './Helpers/Query'
 import emailjs from '@emailjs/browser'
 
 import { ReactComponent as Github } from './assets/github.svg'
 import { ReactComponent as Link } from './assets/link.svg'
+import { Observer } from './Components/Observer'
+import useObserver from './hooks/useObserver'
+import useProfPic from './hooks/useProfPic'
 
-const url = 'https://dsprofilepic-ker-production.up.railway.app'
-
-function App (): React.ReactElement {
+function App () {
   const [profPicURL, setProfPicURL] = useState<string>('')
   const form = useRef<HTMLFormElement>(null)
 
-  useEffect(() => {
-    const source = axios.CancelToken.source()
+  const observerRef = useRef<HTMLDivElement>(null)
+  const homeRef = useRef<HTMLDivElement>(null)
+  const aboutRef = useRef<HTMLDivElement>(null)
+  const skillsRef = useRef<HTMLDivElement>(null)
+  const projectsRef = useRef<HTMLDivElement>(null)
+  const contactRef = useRef<HTMLDivElement>(null)
 
-    const loadData = async (): Promise<void> => {
-      try {
-        const res = await axios.get(`${url}/ds/profpic/999693766313123860`, { cancelToken: source.token })
-        setProfPicURL(res.data)
-        // setLoading(false)
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    void loadData()
+  useObserver(observerRef, [homeRef, aboutRef, skillsRef, projectsRef, contactRef])
+  useProfPic('https://dsprofilepic-ker-production.up.railway.app', setProfPicURL)
 
-    function observer (): () => void {
-      const observer = $('.observer')!
-      const toObserve = $$('.section')!
-
-      let lastIntersected: HTMLElement
-
-      const scroll = (): void => {
-        const { top: y } = getCoords(observer)
-
-        const threshold = 75
-
-        const yDetection = y + observer.clientHeight * threshold / 100
-
-        const coords = toObserve.map((elem, i) => {
-          elem.dataset.observerId = i.toString()
-
-          return { top: getCoords(elem).top, bot: getCoords(elem).top + elem.clientHeight, target: elem }
-        })
-
-        const entries = coords.map((vec, i) => {
-          const isIntersecting = yDetection > vec.top && yDetection < vec.bot
-          if (isIntersecting) lastIntersected = vec.target
-
-          return { target: vec.target, isIntersecting, wasIntercepted: lastIntersected?.dataset.observerId === vec.target.dataset.observerId }
-        })
-
-        window.dispatchEvent(new CustomEvent('observer', { detail: entries }))
-      }
-
-      scroll()
-
-      return scroll
-    }
-
-    const resize = (): void => {
-      const elem = $('.me-pic')!
-      const style = window.getComputedStyle(elem)
-      elem.style.height = style.width
-    }
-
-    resize()
-    const scroll = observer()
-
-    window.addEventListener('resize', resize)
-    window.addEventListener('scroll', scroll)
-
-    return () => {
-      window.removeEventListener('resize', resize)
-      window.removeEventListener('scroll', scroll)
-      source.cancel()
-    }
-  }, [])
-
-  const getCoords = useCallback((elem: HTMLElement): { top: number, left: number } => { // crossbrowser version
-    const box = elem.getBoundingClientRect()
-
-    const body = document.body
-    const docEl = document.documentElement
-
-    const scrollTop = window.pageYOffset ?? docEl.scrollTop ?? body.scrollTop
-    const scrollLeft = window.pageXOffset ?? docEl.scrollLeft ?? body.scrollLeft
-
-    const clientTop = docEl.clientTop ?? body.clientTop ?? 0
-    const clientLeft = docEl.clientLeft ?? body.clientLeft ?? 0
-
-    const top = box.top + scrollTop - clientTop
-    const left = box.left + scrollLeft - clientLeft
-
-    return { top: Math.round(top), left: Math.round(left) }
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    // validate email using deep-email-validator in the backend
 
     emailjs.sendForm('service_hlwh1ue', 'template_bbh6qie', form.current!, 'wYl9iOiK7rs_ozSRy')
       .then((result) => {
@@ -114,11 +41,11 @@ function App (): React.ReactElement {
 
   return (
     <div className="App">
-      <div className='observer' />
+      <Observer ref={observerRef}/>
       <NavBar />
       <div style={{ color: 'white', position: 'absolute' }}>width: {window.innerWidth} height: {window.innerHeight}</div>
       <div className="sections">
-        <Section bg='/static/ohto.jpg' name="Home" style={{ minHeight: '100vh' }}>
+        <Section ref={homeRef} bg='/static/ohto.jpg' name="Home">
           <>
             <Cherry />
             <div className='profile-container'>
@@ -134,7 +61,7 @@ function App (): React.ReactElement {
             </div>
           </>
         </Section>
-        <Section name="About">
+        <Section ref={aboutRef} name="About">
           <div className="container">
               <div className="me-pic">
                 <div className="border">
@@ -165,7 +92,7 @@ function App (): React.ReactElement {
               </div>
           </div>
         </Section>
-        <Section bg='/static/kuriyama.jpg' name="Skills">
+        <Section ref={skillsRef} bg='/static/kuriyama.jpg' name="Skills">
             <ContainerWithTitle className='container' title='Skills'>
               <div className="skills-container">
                 <Skill name="JavaScript" level={85} />
@@ -177,7 +104,7 @@ function App (): React.ReactElement {
               </div>
             </ContainerWithTitle>
         </Section>
-        <Section name="Projects">
+        <Section ref={projectsRef} name="Projects">
           <ContainerWithTitle title='Projects'>
             <div className="cards">
               <ProjectCard name={'Uno'} img={'/static/ohto.jpg'} tags={['React', 'Typescript', 'Redux']} description={'aaaaaaaaa bbbbbbbbbbbbbbb cccccc dddd eeeeeeeeeeeeeee ffffffff ggggggggggggg'} repo={'5'} />
@@ -185,7 +112,7 @@ function App (): React.ReactElement {
             </div>
           </ContainerWithTitle>
         </Section>
-        <Section bg='/static/kuriyama.jpg' name="Contact">
+        <Section ref={contactRef} bg='/static/kuriyama.jpg' name="Contact">
           <ContainerWithTitle title='Contact'>
             <>
               <form className="form" ref={form} onSubmit={handleSubmit}>

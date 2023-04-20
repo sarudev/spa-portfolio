@@ -23,6 +23,7 @@ module.exports = {
     '@typescript-eslint/no-dynamic-delete': 'off',
     '@typescript-eslint/consistent-type-assertions': 'off',
     'react/display-name': 'off',
-    '@typescript-eslint/no-non-null-assertion': 'off'
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off'
   }
 }

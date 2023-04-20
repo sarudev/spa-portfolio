@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { type ForwardedRef, forwardRef } from 'react'
 import { Background } from '../App'
 
 interface SectionI {
@@ -8,11 +8,11 @@ interface SectionI {
   bg?: string
 }
 
-export default function Section ({ name, children, style, bg }: SectionI): React.ReactElement {
+export default forwardRef(({ name, children, style, bg }: SectionI, ref: ForwardedRef<HTMLDivElement>) => {
   return (
-    <div style={style} id={name} className="section">
+    <div ref={ref} style={style} id={name} className="section">
       {bg != null && <Background img={bg}/>}
       {children}
     </div>
   )
-}
+})
