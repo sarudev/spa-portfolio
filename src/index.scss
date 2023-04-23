@@ -637,6 +637,7 @@ html {
               gap: 25px;
 
               >.container {
+                width: 100%;
                 display: flex;
                 gap: 25px;
               }
@@ -811,7 +812,6 @@ button {
       }
 
       &#Contact>.container {
-        width: 100%;
         flex-direction: column;
 
         >.form,
