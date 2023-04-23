@@ -210,6 +210,55 @@ export function Background ({ img }: { img: string }): React.ReactElement {
   )
 }
 
+const map = (colors: string[]) => {
+  return colors.map(color => {
+    const styles: React.CSSProperties = {
+      display: 'inline-flex',
+      width: 150,
+      height: 150,
+      backgroundColor: color,
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: 'white',
+      textShadow: '5px 5px 5px black'
+    }
+
+    return <div key={color} style={styles}>{color}</div>
+  })
+}
+
+function Pepo () {
+  const grises = [
+    '#000000', '#101010', '#1E1E1E', '#242424', '#303030', '#404040', '#606060', '#808080', '#C0C0C0', '#ffffff'
+  ]
+  const programming = [
+    '#fbbe5b', '#1e9ae0', '#e1b2f0', '#f46049'
+  ]
+  const coding = [
+    '#ce9178', '#c586c0', '#4ec9b0', '#dcdcaa'
+  ]
+  const pasteles = [
+    '#faedcb', '#c9e4de', '#c6def1', '#bdb2ff', '#fa9bcf', '#ffadad'
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div>
+        {map(grises)}
+      </div>
+      <div>
+        {map(programming)}
+      </div>
+      <div>
+        {map(coding)}
+      </div>
+      <div>
+        {map(pasteles)}
+      </div>
+    </div>
+  )
+}
+
 export default App
 
 // 509 x 1035
