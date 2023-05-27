@@ -1,78 +1,58 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import Navigate from './Navigate'
-import { type ObserverEvent, subscribe, unsubscrite } from '../Helpers/Observer'
+import { useRef } from 'react'
+import { ReactComponent as Logo } from '../assets/logo.svg'
+import { ReactComponent as Gear } from '../assets/gear.svg'
+import { ReactComponent as Home } from '../assets/home.svg'
+import { ReactComponent as About } from '../assets/about.svg'
+import { ReactComponent as Skills } from '../assets/skills.svg'
+import { ReactComponent as Projects } from '../assets/projects.svg'
+import { ReactComponent as Contact } from '../assets/contact.svg'
+import '../styles/navbar.scss'
 
-export default function NavBar (): React.ReactElement {
-  const [currentElem, setCurrentElem] = useState<string>('')
-  const [opened, setOpened] = useState(false)
-
-  useEffect(() => {
-    const cb = (e: ObserverEvent) => {
-      const entries = e.detail!
-
-      entries.forEach(elem => {
-        if (elem.isIntersecting) setCurrentElem(elem.target.id)
-      })
-    }
-
-    subscribe(cb)
-
-    return () => {
-      unsubscrite(cb)
-    }
-  }, [])
-
-  const hack = useCallback(({ event, originalString, origin }: { event?: React.MouseEvent<HTMLSpanElement, MouseEvent>, originalString: string, origin?: HTMLSpanElement }) => {
-    const letters = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz'
-    let iteration = 0
-    const interval = setInterval(() => {
-      if (origin == null && event == null) throw new Error('Event not specified')
-
-      let span: HTMLSpanElement
-      if (origin != null) span = origin
-      else span = event!.target as HTMLSpanElement
-      span.innerText = span.innerText.split('').map((l, i) => {
-        if (i < iteration) {
-          return originalString[i]
-        }
-
-        return letters[Math.floor(Math.random() * letters.length)]
-      }).join('')
-
-      if (iteration >= originalString.length) clearInterval(interval)
-
-      iteration += 1 / 2
-    }, 50)
-  }, [])
+export default function Navbar () {
+  const navRef = useRef<HTMLDivElement>(null)
 
   return (
-    <div className={`nav-container ${currentElem === 'Home' ? 'home' : ''}`}>
-      <div className="nav">
-        <Hamburger opened={opened} setOpened={setOpened}/>
-        <div className="logo">
-          <span>{'<'}</span>
-          <span onMouseEnter={(e) => { hack({ event: e, originalString: 'Sarudev' }) }}>{'Sarudev'}</span>
-          <span>{'/>'}</span>
+    <>
+      <nav ref={navRef} className="nav">
+        <div className="logo item">
+          <Logo className='icon' />
         </div>
-
-        <div className={`navigation ${opened ? 'opened' : ''}`}>
-          <Navigate hack={hack} active={currentElem === 'Home'} name="Home" />
-          <Navigate hack={hack} active={currentElem === 'About'} name="About" />
-          <Navigate hack={hack} active={currentElem === 'Skills'} name="Skills" />
-          <Navigate hack={hack} active={currentElem === 'Projects'} name="Projects" />
-          <Navigate hack={hack} active={currentElem === 'Contact'} name="Contact" />
+        <div className="bot">
+          <ul className="items">
+            <li className='item'>
+              <Home className='icon'/>
+              <span className="text">Home</span>
+            </li>
+            <li className='item'>
+              <About className='icon'/>
+              <span className="text">About me</span>
+            </li>
+            <li className='item'>
+              <Skills className='icon'/>
+              <span className="text">Skills</span>
+            </li>
+            <li className='item'>
+              <Projects className='icon'/>
+              <span className="text">Projects</span>
+            </li>
+            <li className='item'>
+              <Contact className='icon'/>
+              <span className="text">Contact</span>
+            </li>
+          </ul>
+          <div className="extra item">
+            <Gear className='icon' />
+            <span className="text">Extra</span>
+          </div>
         </div>
+      </nav>
+      <div className="ham" onClick={(e) => {
+        navRef.current?.classList.toggle('open')
+      }}>
+        <div className="top line"></div>
+        <div className="mid line"></div>
+        <div className="bot line"></div>
       </div>
-    </div>
-  )
-}
-
-function Hamburger ({ opened, setOpened }: { opened: boolean, setOpened: React.Dispatch<React.SetStateAction<boolean>> }): React.ReactElement {
-  return (
-    <div className={`hamburger ${opened ? 'opened' : ''}`} onClick={(e) => { setOpened(prev => !prev) }}>
-      <div className="top"></div>
-      <div className="mid"></div>
-      <div className="bot"></div>
-    </div>
+    </>
   )
 }
