@@ -1,11 +1,5 @@
 import { useRef } from 'react'
-import { ReactComponent as Logo } from '../assets/logo.svg'
-import { ReactComponent as Gear } from '../assets/gear.svg'
-import { ReactComponent as Home } from '../assets/home.svg'
-import { ReactComponent as About } from '../assets/about.svg'
-import { ReactComponent as Skills } from '../assets/skills.svg'
-import { ReactComponent as Projects } from '../assets/projects.svg'
-import { ReactComponent as Contact } from '../assets/contact.svg'
+import DynamicSVG from './DynamicSVG'
 import '../styles/navbar.scss'
 
 export default function Navbar () {
@@ -15,33 +9,33 @@ export default function Navbar () {
     <>
       <nav ref={navRef} className="nav">
         <div className="logo item">
-          <Logo className='icon' />
+          <DynamicSVG svgName='logo' id='svg-loable-logo' className='icon' />
         </div>
         <div className="bot">
           <ul className="items">
             <li className='item'>
-              <Home className='icon'/>
+              <DynamicSVG svgName='home' id='svg-loable-home' className='icon'/>
               <span className="text">Home</span>
             </li>
             <li className='item'>
-              <About className='icon'/>
+              <DynamicSVG svgName='about' id='svg-loable-about' className='icon'/>
               <span className="text">About me</span>
             </li>
             <li className='item'>
-              <Skills className='icon'/>
+              <DynamicSVG svgName='skills' id='svg-loable-skills' className='icon'/>
               <span className="text">Skills</span>
             </li>
             <li className='item'>
-              <Projects className='icon'/>
+              <DynamicSVG svgName='projects' id='svg-loable-projects' className='icon'/>
               <span className="text">Projects</span>
             </li>
             <li className='item'>
-              <Contact className='icon'/>
+              <DynamicSVG svgName='contact' id='svg-loable-contact' className='icon'/>
               <span className="text">Contact</span>
             </li>
           </ul>
           <div className="extra item">
-            <Gear className='icon' />
+            <DynamicSVG svgName='gear' id='svg-loable-gear' className='icon' />
             <span className="text">Extra</span>
           </div>
         </div>

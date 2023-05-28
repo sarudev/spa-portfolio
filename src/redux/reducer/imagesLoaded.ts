@@ -20,7 +20,7 @@ export const selectedPlayer = createSlice({
     setLoaded: (state, { payload }: PayloadAction<string>) => {
       const idx = state.findIndex(e => e.id === payload)
 
-      if (idx < 0) throw new Error(`Image not found with ID ${payload}`)
+      if (idx < 0) return
 
       state[idx].loaded = true
     },

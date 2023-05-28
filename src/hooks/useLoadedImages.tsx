@@ -5,6 +5,7 @@ import { setTrue } from '../redux/reducer/allImagesLoaded'
 
 export function useLoadImage () {
   const imagesLoaded = useAppSelector(s => s.imagesLoaded)
+  const allImagesLoaded = useAppSelector(s => s.allImagesLoaded)
   const dispatch = useAppDispatch()
 
   useLayoutEffect(() => {
@@ -19,22 +20,34 @@ export function useLoadImage () {
   }, [])
 
   useEffect(() => {
+    const loader = document.querySelector('.progress-bar-outer-container .progress-bar') as HTMLDivElement
+
     let imgLen = imagesLoaded.length
     let imgLoadedLen = imagesLoaded.filter(e => e.loaded).length
     imgLoadedLen = imgLen === 0 ? 1 : imgLoadedLen
     imgLen = imgLen === 0 ? 1 : imagesLoaded.length
     const percentage = imgLoadedLen / imgLen * 100
 
-    const loader = document.querySelector('.loader-background .loader-container .loader') as HTMLDivElement
+    loader.style.setProperty('--progress-bar-width-percentage', `${percentage}%`)
 
-    loader.style.width = `${percentage}%`
     if (imagesLoaded.length > 0 && imagesLoaded.every(e => e.loaded)) {
-      setTimeout(() => {
-        setTrue()
-        document.body.style.overflow = 'initial'
-      }, 1250)
+      dispatch(setTrue())
     }
   }, [imagesLoaded])
+
+  useEffect(() => {
+    if (allImagesLoaded) {
+      const loaderContainer = document.querySelector('.progress-bar-outer-container') as HTMLDivElement
+
+      loaderContainer.classList.add('preloaded')
+
+      setTimeout(() => {
+        document.body.style.overflow = 'initial'
+        loaderContainer.classList.remove('preloaded')
+        loaderContainer.classList.add('loaded')
+      }, 1250)
+    }
+  }, [allImagesLoaded])
 }
 
 export function useLoadImageHelpers () {
