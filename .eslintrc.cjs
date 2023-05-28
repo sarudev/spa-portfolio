@@ -25,6 +25,7 @@ module.exports = {
     'react/display-name': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    'react/react-in-jsx-scope': 'off'
+    'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/triple-slash-reference': 'off'
   }
 }
