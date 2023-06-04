@@ -7,7 +7,7 @@ export default function useProfPic (url: string, cb: (data: string) => void) {
 
     const loadData = async () => {
       try {
-        const { data } = await axios.get<{ avatar: string | null, defaultAvatar: string }>(`${url}/ds/profpic/999693766313123860`, { cancelToken: source.token })
+        const { data } = await axios.get<{ avatar: string | null, defaultAvatar: string }>(url, { cancelToken: source.token })
         cb(data.avatar == null ? data.defaultAvatar : data.avatar)
       } catch (err) {
         console.log(err)

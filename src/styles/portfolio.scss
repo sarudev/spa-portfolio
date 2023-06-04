@@ -1,0 +1,57 @@
+main {
+  position: relative;
+  width: calc(100% - var(--navbar-width));
+  height: max-content;
+  margin-left: var(--navbar-width);
+
+  section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+
+    &#home {
+      .container {
+        width: min(800px, 100%);
+        height: max-content;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        img {
+          border-radius: 25%;
+        }
+
+        .self {
+          .hi {
+            font-size: 32px;
+          }
+
+          .ima {
+            position: relative;
+            height: 26px;
+            font-size: 22px;
+            font-family: monospace;
+            display: flex;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (width < 800px) {
+  main {
+    section {
+      &#home {
+        .container {
+          img {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

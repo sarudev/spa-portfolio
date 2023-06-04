@@ -6,7 +6,7 @@ export default function Navbar () {
   const navRef = useRef<HTMLDivElement>(null)
 
   return (
-    <>
+    <div className="nav-container">
       <nav ref={navRef} className="nav">
         <div className="logo item">
           <DynamicSVG svgName='logo' id='svg-loable-logo' className='icon' />
@@ -47,6 +47,6 @@ export default function Navbar () {
         <div className="mid line"></div>
         <div className="bot line"></div>
       </div>
-    </>
+    </div>
   )
 }

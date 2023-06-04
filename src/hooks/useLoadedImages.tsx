@@ -3,12 +3,13 @@ import { useAppDispatch, useAppSelector } from './Redux'
 import { multipleAdd, removeAll, setLoaded } from '../redux/reducer/imagesLoaded'
 import { setTrue } from '../redux/reducer/allImagesLoaded'
 
-export function useLoadImage () {
+export function useLoadImage (disabled: boolean) {
   const imagesLoaded = useAppSelector(s => s.imagesLoaded)
   const allImagesLoaded = useAppSelector(s => s.allImagesLoaded)
   const dispatch = useAppDispatch()
 
   useLayoutEffect(() => {
+    if (disabled) return
     document.body.style.overflow = 'hidden'
 
     const imgs = document.querySelectorAll('.img-to-load')
@@ -20,6 +21,7 @@ export function useLoadImage () {
   }, [])
 
   useEffect(() => {
+    if (disabled) return
     const loader = document.querySelector('.progress-bar-outer-container .progress-bar') as HTMLDivElement
 
     let imgLen = imagesLoaded.length
@@ -36,6 +38,7 @@ export function useLoadImage () {
   }, [imagesLoaded])
 
   useEffect(() => {
+    if (disabled) return
     if (allImagesLoaded) {
       const loaderContainer = document.querySelector('.progress-bar-outer-container') as HTMLDivElement
 
